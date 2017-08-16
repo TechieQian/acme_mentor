@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const db = new Sequelize(process.env.DATABASE_URL);
+var db = new Sequelize(process.env.DATABASE_URL || 'mentordb');
 
 var User = db.define('user', {
   name: {
