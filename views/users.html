@@ -1,0 +1,58 @@
+
+  {% block header %}
+  <h1>Users</h1>
+  {% endblock %}
+
+  {% extends 'layout.html' %}
+
+  {% block content %}
+
+  <div class="form-group well">
+    <form action="/users" method="POST">
+      <input name="name" class="form-control input-lg" placeholder="user name">
+      <br>
+      <input type="submit" class="btn btn-primary" value="add user">
+    </form>
+  </div>
+    {% for user in users %}
+      <div class='user panel'>
+        <div class='panel-heading'>
+          {{user.name}}
+          <form action='/users/{{user.id}}?_method=DELETE' method='POST'><input type='submit' class='btn btn-warning' value='Delete'></form>
+        </div>
+        <br>
+        <form action='/users/{{user.id}}/awards' method='POST'><input type='submit' class='btn-success btn-xs' value='Generate Award'></form>
+        {% for award in user.awards %}
+          {{award.name}}
+          <form action='/users/{{user.id}}/awards/{{award.id}}?_method=DELETE' method='POST'><input type='submit' class='btn-danger btn-xs' value='delete award'></form>
+        {% endfor %}
+        {% if user.Mentor %}
+          <p>Mentored by {{user.Mentor.name}}</p>
+        {% endif %}
+        <br>
+        {% if user.isMentor %}
+          <span class="label label-default">Mentor</span>
+        {% endif %}
+        <br>
+        <div class='mentor'>
+          <form class='well' action='/users/{{user.id}}?_method=PUT' method='POST'>
+            <select name="select" class='form-control'> <!--Supplement an id here instead of using 'name'-->
+              {% for a_user in users %}
+                {% if a_user.isMentor and a_user.id != user.id %}
+                  <option value="{{a_user.name}}">{{a_user.name}}</option>
+                {% endif %}
+              {% endfor %}
+
+            </select>
+            <br>
+            <input type='submit' class='btn btn-xs btn-primary' value='set as mentor'>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+
+    <script>
+      $('li').filter(function() {console.log( $(this).text()); return $(this).text() == 'Users' }).toggleClass('active')
+    </script>
+
+  {% endblock %}

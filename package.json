@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -12,7 +13,12 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
+    "faker": "^4.1.0",
+    "method-override": "^2.3.9",
     "morgan": "^1.8.2",
+    "path": "^0.12.7",
+    "pg": "^7.1.2",
+    "sequelize": "^4.4.7",
     "swig": "^1.4.2"
   }
 }
