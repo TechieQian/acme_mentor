@@ -30,7 +30,13 @@ app.use(require('method-override')('_method'))
 
 //Routes
 app.get('/', (req,res) => res.render('index'))
+
 app.use('/users', require('./routes/routes'))
+app.use((err, req, res, next)=> {
+  console.log('err is', err)
+  res.status(err.status || 500).render('error', { error: err });
+});
+
 
 //Static
 app.use(express.static(path.join(__dirname, 'public')));

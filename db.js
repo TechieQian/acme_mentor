@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-var db =  new Sequelize(process.env.DATABASE_URL, {
+var db =  new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/mentordb', {
   logging: false
 })
 
